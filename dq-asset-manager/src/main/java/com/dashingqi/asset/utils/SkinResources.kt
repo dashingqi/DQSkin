@@ -1,5 +1,6 @@
 package com.dashingqi.asset.utils
 
+import android.app.Application
 import android.content.res.Resources
 import android.text.TextUtils
 
@@ -8,11 +9,12 @@ import android.text.TextUtils
  * @author : zhangqi
  * @time : 2022/6/21 07:09
  */
-class SkinResources {
+class SkinResources private constructor() {
 
-    /** App的资源*/
+    /** App的Resources*/
     private var mAppResources: Resources? = null
 
+    /** 皮肤的Resources */
     private var mSkinResources: Resources? = null
 
     /** 皮肤包的包名*/
@@ -20,6 +22,14 @@ class SkinResources {
 
     /** 记录是否使用默认的皮肤*/
     private var isDefaultSkin = false
+
+    /**
+     * 初始化操作
+     * @param application Application
+     */
+    fun init(application: Application) {
+        mAppResources = application.resources
+    }
 
     /**
      * 应用皮肤
@@ -66,5 +76,13 @@ class SkinResources {
         return mSkinResources?.getColor(resId) ?: 0
     }
 
+    companion object {
+        val INSTANCE
+            get() = Holder.holder
+    }
+
+    object Holder {
+        val holder = SkinResources()
+    }
 
 }

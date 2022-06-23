@@ -9,11 +9,11 @@ import android.os.Bundle
  * @since 2022/6/23
  */
 class SkinAppActivityLifecycle : ApplicationActivityLifecycle() {
-    override fun onActivityCreated(p0: Activity, p1: Bundle?) {
-        super.onActivityCreated(p0, p1)
+    override fun onActivityCreated(activity: Activity, bundle: Bundle?) {
+        super.onActivityCreated(activity, bundle)
     }
 
-    override fun onActivityDestroyed(p0: Activity) {
-        super.onActivityDestroyed(p0)
+    override fun onActivityDestroyed(activity: Activity) {
+        super.onActivityDestroyed(activity)
     }
 }
