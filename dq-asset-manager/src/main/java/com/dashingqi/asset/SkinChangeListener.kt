@@ -5,5 +5,7 @@ package com.dashingqi.asset
  * @author : zhangqi
  * @time : 2022/6/21 07:38
  */
-interface SkinViewSupport {
+interface SkinChangeListener {
+    /** 皮肤变换*/
+    fun onSkinChange()
 }
