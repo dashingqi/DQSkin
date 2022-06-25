@@ -3,6 +3,7 @@ package com.dashingqi.asset.utils
 import android.app.Application
 import android.content.res.Resources
 import android.text.TextUtils
+import androidx.annotation.NonNull
 
 /**
  * @desc : 皮肤资源
@@ -27,7 +28,7 @@ class SkinResources private constructor() {
      * 初始化操作
      * @param application Application
      */
-    fun init(application: Application) {
+    fun init(@NonNull application: Application) {
         mAppResources = application.resources
     }
 
@@ -40,6 +41,15 @@ class SkinResources private constructor() {
         mSkinPackageName = packageName
         mAppResources = resources
         isDefaultSkin = TextUtils.isEmpty(packageName) || resources == null
+    }
+
+    /**
+     * 重制皮肤数据,加载皮肤使用默认
+     */
+    fun resetResources() {
+        mSkinResources = null
+        mSkinPackageName = ""
+        isDefaultSkin = true
     }
 
 

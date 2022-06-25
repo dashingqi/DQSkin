@@ -1,8 +1,11 @@
 package com.dashingqi.asset
 
 import android.app.Application
+import androidx.annotation.NonNull
+import androidx.annotation.Nullable
 import com.dashingqi.asset.lifecycle.SkinAppActivityLifecycle
-import com.dashingqi.asset.utils.SkinResources
+import com.dashingqi.asset.utils.*
+import com.dashingqi.asset.utils.SkinPreference
 
 /**
  * 皮肤管理者
@@ -12,21 +15,58 @@ import com.dashingqi.asset.utils.SkinResources
 class DQSkinManager private constructor() {
 
     /** 上下文 */
-    private lateinit var mContext: Application
+    private var mContext: Application? = null
 
+    /** Activity的生命周期监听 */
     private var mSkinAppActivityLifecycle: SkinAppActivityLifecycle? = null
 
     /**
      * DQSkinManager的初始化操作
      * @param application Application
      */
-    fun init(application: Application) {
+    fun init(@NonNull application: Application) {
         mContext = application
-        /** 初始化皮肤资源 用于从app/皮肤包中加载资源*/
+
+        // Sp 初始化
+        SkinPreference.INSTANCE.init(application)
+
+        // 初始化皮肤资源 用于从app/皮肤包中加载资源
         SkinResources.INSTANCE.init(application)
-        /** 注册Activity生命周期监听*/
+
+        // 注册Activity生命周期监听
         mSkinAppActivityLifecycle = SkinAppActivityLifecycle()
         application.registerActivityLifecycleCallbacks(mSkinAppActivityLifecycle)
+
+        // 加载上次应用的皮肤包
+        val preSkinPath = SkinPreference.INSTANCE.getSkin()
+        loadSkin(preSkinPath)
+    }
+
+    /**
+     * 加载皮肤并应用皮肤
+     * @param skinPath String 皮肤的路径
+     */
+    fun loadSkin(@Nullable skinPath: String?) {
+        // 如果皮肤路径为空，就使用默认的皮肤
+        if (skinPath.isNullOrEmpty()) {
+            SkinPreference.INSTANCE.resetSkin()
+            SkinResources.INSTANCE.resetResources()
+
+        } else {
+            mContext?.let { application ->
+                val appResources = application.resources
+                kotlin.runCatching {
+                    val assetManager = getOrNullAssetManager(skinPath)
+                    assetManager ?: return
+                    val skinResources = buildPluginResources(assetManager, appResources, application)
+                    val packageName = getPluginPackageName(application, skinPath)
+                    SkinResources.INSTANCE.applySkin(skinResources, packageName)
+
+                    // 记录下当前应用的皮肤
+                    SkinPreference.INSTANCE.setSkin(skinPath)
+                }
+            }
+        }
     }
 
     companion object {
