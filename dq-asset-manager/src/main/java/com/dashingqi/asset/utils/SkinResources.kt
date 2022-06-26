@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.res.Resources
 import android.text.TextUtils
 import androidx.annotation.NonNull
+import androidx.annotation.Nullable
 
 /**
  * @desc : 皮肤资源
@@ -58,7 +59,7 @@ class SkinResources private constructor() {
      * @param resId Int
      * @return Int
      */
-    fun getIdentifier(resId: Int): Int {
+    private fun getIdentifier(resId: Int): Int {
 
         if (isDefaultSkin) {
             return resId
@@ -74,16 +75,17 @@ class SkinResources private constructor() {
      * @param resId Int
      * @return Int
      */
-    fun getColor(resId: Int): Int {
+    @Nullable
+    fun getColor(@NonNull resId: Int): Int? {
         if (isDefaultSkin) {
-            return resId
+            return mAppResources?.getColor(resId)
         }
         val skinId = getIdentifier(resId)
         if (skinId == 0) {
-            return mAppResources?.getColor(resId) ?: 0
+            return mAppResources?.getColor(resId)
 
         }
-        return mSkinResources?.getColor(resId) ?: 0
+        return mSkinResources?.getColor(resId)
     }
 
     companion object {

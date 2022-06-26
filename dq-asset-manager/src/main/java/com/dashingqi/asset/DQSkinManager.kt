@@ -5,7 +5,6 @@ import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import com.dashingqi.asset.lifecycle.SkinAppActivityLifecycle
 import com.dashingqi.asset.utils.*
-import com.dashingqi.asset.utils.SkinPreference
 
 /**
  * 皮肤管理者

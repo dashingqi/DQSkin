@@ -1,4 +1,4 @@
-package com.dashingqi.asset.utils
+package com.dashingqi.asset
 
 import android.content.Context
 import android.content.SharedPreferences
