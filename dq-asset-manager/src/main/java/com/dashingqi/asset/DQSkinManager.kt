@@ -8,7 +8,7 @@ import com.dashingqi.asset.utils.*
 
 /**
  * 皮肤管理者
- * @author zhangqi61
+ * @author zhangqi
  * @since 2022/6/23
  */
 class DQSkinManager private constructor() {
@@ -42,10 +42,10 @@ class DQSkinManager private constructor() {
     }
 
     /**
-     * 加载皮肤并应用皮肤
+     * 加载皮肤包
      * @param skinPath String 皮肤的路径
      */
-    fun loadSkin(@Nullable skinPath: String?) {
+    private fun loadSkin(@Nullable skinPath: String?) {
         // 如果皮肤路径为空，就使用默认的皮肤
         if (skinPath.isNullOrEmpty()) {
             SkinPreference.INSTANCE.resetSkin()

@@ -6,7 +6,7 @@ import android.os.Bundle
 
 /**
  * Activity生命周期监听
- * @author zhangqi61
+ * @author zhangqi
  * @since 2022/6/23
  */
 open  class ApplicationActivityLifecycle : Application.ActivityLifecycleCallbacks {

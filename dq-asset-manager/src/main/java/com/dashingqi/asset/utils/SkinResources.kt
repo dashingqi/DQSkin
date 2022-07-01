@@ -2,9 +2,9 @@ package com.dashingqi.asset.utils
 
 import android.app.Application
 import android.content.res.Resources
-import android.text.TextUtils
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
+import com.dashingqi.asset.constant.EMPTY_STRING
 
 /**
  * @desc : 皮肤资源
@@ -20,7 +20,7 @@ class SkinResources private constructor() {
     private var mSkinResources: Resources? = null
 
     /** 皮肤包的包名*/
-    private var mSkinPackageName = ""
+    private var mSkinPackageName = EMPTY_STRING
 
     /** 记录是否使用默认的皮肤*/
     private var isDefaultSkin = false
@@ -38,10 +38,10 @@ class SkinResources private constructor() {
      * @param resources Resources
      * @param packageName String
      */
-    fun applySkin(resources: Resources, packageName: String) {
+    fun applySkin(@Nullable resources: Resources?, @NonNull packageName: String) {
         mSkinPackageName = packageName
         mAppResources = resources
-        isDefaultSkin = TextUtils.isEmpty(packageName) || resources == null
+        isDefaultSkin = packageName.isEmpty() || resources == null
     }
 
     /**
@@ -49,7 +49,7 @@ class SkinResources private constructor() {
      */
     fun resetResources() {
         mSkinResources = null
-        mSkinPackageName = ""
+        mSkinPackageName = EMPTY_STRING
         isDefaultSkin = true
     }
 

@@ -5,7 +5,7 @@ import android.os.Bundle
 
 /**
  * 皮肤-Activity生命周期监听
- * @author zhangqi61
+ * @author zhangqi
  * @since 2022/6/23
  */
 class SkinAppActivityLifecycle : ApplicationActivityLifecycle() {
