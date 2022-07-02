@@ -45,7 +45,7 @@ class DQSkinManager private constructor() {
      * 加载皮肤包
      * @param skinPath String 皮肤的路径
      */
-    private fun loadSkin(@Nullable skinPath: String?) {
+    private fun loadSkin(skinPath: String?) {
         // 如果皮肤路径为空，就使用默认的皮肤
         if (skinPath.isNullOrEmpty()) {
             SkinPreference.INSTANCE.resetSkin()
@@ -60,7 +60,6 @@ class DQSkinManager private constructor() {
                     val skinResources = buildPluginResources(assetManager, appResources, application)
                     val packageName = getPluginPackageName(application, skinPath)
                     SkinResources.INSTANCE.applySkin(skinResources, packageName)
-
                     // 记录下当前应用的皮肤
                     SkinPreference.INSTANCE.setSkin(skinPath)
                 }

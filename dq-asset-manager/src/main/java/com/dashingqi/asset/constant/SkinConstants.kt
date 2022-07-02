@@ -21,6 +21,9 @@ internal const val EMPTY_STRING = ""
 /** Tag */
 internal const val SKIN_LOG_TAG = "SkinLogTag"
 
+/** color */
+internal const val COLOR_TAG = "color"
+
 
 /************************要收集的属性*****************************/
 

@@ -1,6 +1,5 @@
 package com.dashingqi.asset.utils
 
-import android.app.Application
 import android.content.Context
 import android.content.pm.PackageManager
 import android.content.res.AssetManager
@@ -36,14 +35,14 @@ fun getOrNullAssetManager(@NonNull pluginPath: String): AssetManager? {
 
 /**
  * 获取插件包的包名
- * @param application Application
- * @param pluginPath String
+ * @param context Context 上下文环境
+ * @param pluginPath String 插件包的路径
  * @return String 插件包的包名
  */
 @NonNull
-fun getPluginPackageName(@NonNull application: Application, @NonNull pluginPath: String): String {
+fun getPluginPackageName(@NonNull context: Context, @NonNull pluginPath: String): String {
     return runCatching {
-        val pm = application.packageManager
+        val pm = context.packageManager
         val packageInfo = pm.getPackageArchiveInfo(pluginPath, PackageManager.GET_ACTIVITIES)
         packageInfo?.packageName ?: EMPTY_STRING
     }.getOrDefault(EMPTY_STRING)
@@ -52,16 +51,16 @@ fun getPluginPackageName(@NonNull application: Application, @NonNull pluginPath:
 
 /**
  * 构建插件的Resources
- * @param assetManager AssetManager
- * @param appResources Resources
- * @param context Context
- * @return Resources pluginResources
+ * @param assetManager AssetManager AssetManager
+ * @param appResources Resources 宿主的Resource
+ * @param context Context 上下文环境
+ * @return Resources pluginResources 构建的插件Resources
  */
 @NonNull
 fun buildPluginResources(
     @NonNull assetManager: AssetManager,
     @NonNull appResources: Resources,
-    context: Context
+    @NonNull context: Context
 ): Resources {
 
     return Resources(

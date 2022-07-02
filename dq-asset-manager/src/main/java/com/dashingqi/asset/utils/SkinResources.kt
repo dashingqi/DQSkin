@@ -1,10 +1,16 @@
 package com.dashingqi.asset.utils
 
 import android.app.Application
+import android.content.res.ColorStateList
 import android.content.res.Resources
+import android.graphics.drawable.Drawable
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
+import androidx.core.content.res.ResourcesCompat
+import com.dashingqi.asset.config.isDebug
+import com.dashingqi.asset.constant.COLOR_TAG
 import com.dashingqi.asset.constant.EMPTY_STRING
+import com.dashingqi.asset.constant.INVALID_RES_ID
 
 /**
  * @desc : 皮肤资源
@@ -66,26 +72,111 @@ class SkinResources private constructor() {
         }
         val resName = mAppResources?.getResourceEntryName(resId)
         val resourceTypeName = mAppResources?.getResourceTypeName(resId)
-        return mSkinResources?.getIdentifier(resName, resourceTypeName, mSkinPackageName) ?: 0
+        return mSkinResources?.getIdentifier(resName, resourceTypeName, mSkinPackageName) ?: INVALID_RES_ID
 
     }
 
     /**
      *
      * @param resId Int
+     * @return ColorStateList?
+     */
+    @Nullable
+    fun getColorStateList(@NonNull resId: Int): ColorStateList? {
+        return runCatching {
+            if (isDefaultSkin) {
+                return ResourcesCompat.getColorStateList(mAppResources!!, resId, null)
+            }
+            val skinId = getIdentifier(resId)
+            if (skinId == INVALID_RES_ID) {
+                return ResourcesCompat.getColorStateList(mAppResources!!, resId, null)
+            }
+            return ResourcesCompat.getColorStateList(mSkinResources!!, resId, null)
+        }.getOrElse {
+            if (isDebug){
+                it.printStackTrace()
+            }
+            null
+        }
+    }
+
+    /**
+     * 获取颜色
+     * @param resId Int 资源ID
      * @return Int
      */
     @Nullable
     fun getColor(@NonNull resId: Int): Int? {
-        if (isDefaultSkin) {
-            return mAppResources?.getColor(resId)
-        }
-        val skinId = getIdentifier(resId)
-        if (skinId == 0) {
-            return mAppResources?.getColor(resId)
+        return runCatching {
+            if (isDefaultSkin) {
+                return ResourcesCompat.getColor(mAppResources!!, resId, null)
+            }
+            val skinId = getIdentifier(resId)
+            if (skinId == INVALID_RES_ID) {
+                return ResourcesCompat.getColor(mAppResources!!, resId, null)
 
+            }
+            return ResourcesCompat.getColor(mSkinResources!!, resId, null)
+        }.getOrElse {
+            if (isDebug){
+                it.printStackTrace()
+            }
+            null
         }
-        return mSkinResources?.getColor(resId)
+    }
+
+
+    /**
+     * 获取Drawable
+     * @param resId Int 资源ID
+     * @return Drawable? 可为空的Drawable
+     */
+    @Nullable
+    fun getDrawable(@NonNull resId: Int): Drawable? {
+        return runCatching {
+            if (isDefaultSkin) {
+                return ResourcesCompat.getDrawable(mAppResources!!, resId, null)
+            }
+
+            // 获取到皮肤包中对应资源ID
+            val skinId = getIdentifier(resId)
+
+            if (skinId == INVALID_RES_ID) {
+                return ResourcesCompat.getDrawable(mAppResources!!, resId, null)
+            }
+            return ResourcesCompat.getDrawable(mSkinResources!!, skinId, null)
+        }.getOrElse {
+            if (isDebug){
+                it.printStackTrace()
+            }
+            null
+        }
+    }
+
+
+    /**
+     * 获取的可能是Color也可能是Drawable
+     * @param resId Int 资源ID
+     */
+    @Nullable
+    fun getBackground(@NonNull resId: Int): Any? {
+        return runCatching {
+            val resourceTypeName = mAppResources?.getResourceTypeName(resId)
+            if (resourceTypeName.isNullOrEmpty()) return null
+            when (resourceTypeName) {
+                COLOR_TAG -> {
+                    getColor(resId)
+                }
+                else -> {
+                    getDrawable(resId)
+                }
+            }
+        }.getOrElse {
+            if (isDebug){
+                it.printStackTrace()
+            }
+            null
+        }
     }
 
     companion object {
