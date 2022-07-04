@@ -1,11 +1,14 @@
 package com.dashingqi.asset.utils
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.content.res.AssetManager
 import android.content.res.Resources
+import android.view.LayoutInflater
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
+import com.dashingqi.asset.config.isDebug
 import com.dashingqi.asset.constant.EMPTY_STRING
 import com.dashingqi.asset.constant.INVALID_RES_ID
 
@@ -17,6 +20,9 @@ import com.dashingqi.asset.constant.INVALID_RES_ID
 
 /** addAssetPath 方法名字*/
 private const val REFLEX_NAME_ADD_ASSET_PATH = "addAssetPath"
+
+/** mFactorySet 属性名字*/
+private const val PEFLEX_NAME_FACTORY_SET = "mFactorySet"
 
 /**
  * 反射执行 AssetManager 的 addAssetPath方法，返回AssetManager
@@ -31,6 +37,28 @@ fun getOrNullAssetManager(@NonNull pluginPath: String): AssetManager? {
         addAssetPathMethod.invoke(assetManager, pluginPath)
         assetManager
     }.getOrNull()
+}
+
+
+/**
+ * 反射设置mFactorySet 属性值为 false
+ * @param layoutInflater LayoutInflater 布局加载器
+ * @return Boolean 设置是否成功
+ */
+@NonNull
+@SuppressLint("SoonBlockedPrivateApi")
+fun resetFactorySetState(@NonNull layoutInflater: LayoutInflater): Boolean {
+    return runCatching {
+        val factorySetFiled = LayoutInflater::class.java.getDeclaredField(PEFLEX_NAME_FACTORY_SET)
+        factorySetFiled.isAccessible = true
+        factorySetFiled.setBoolean(layoutInflater, false)
+        true
+    }.getOrElse {
+        if (isDebug) {
+            it.printStackTrace()
+        }
+        false
+    }
 }
 
 /**

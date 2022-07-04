@@ -72,4 +72,15 @@ internal const val PREFIX_QUESTION_MARK = "?"
 /** @ 开头的属性值 正常都是@ */
 internal const val PREFIX_DEFAULT_ATTR_VALUE = "@"
 
+internal const val PREFIX_ANDROID_WIDGET = "android.widget."
+internal const val PREFIX_ANDROID_WEBKIT = "android.webkit."
+internal const val PREFIX_ANDROID_APP = "android.app."
+internal const val PREFIX_ANDROID_VIEW = "android.view."
+
+internal const val PREFIX_ANDROIDX_WIDGET = "androidx.widget."
+internal const val PREFIX_ANDROIDX_WEBKIT = "androidx.webkit."
+internal const val PREFIX_ANDROIDX_APP = "androidx.app."
+internal const val PREFIX_ANDROIDX_VIEW = "androidx.view."
+
+
 /***********************************************************************/

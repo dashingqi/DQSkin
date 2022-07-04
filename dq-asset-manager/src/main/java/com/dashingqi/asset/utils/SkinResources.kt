@@ -1,6 +1,6 @@
 package com.dashingqi.asset.utils
 
-import android.app.Application
+import android.content.Context
 import android.content.res.ColorStateList
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
@@ -33,9 +33,9 @@ class SkinResources private constructor() {
 
     /**
      * 初始化操作
-     * @param application Application
+     * @param application Context
      */
-    fun init(@NonNull application: Application) {
+    fun init(@NonNull application: Context) {
         mAppResources = application.resources
     }
 

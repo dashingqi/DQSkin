@@ -6,8 +6,12 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import com.dashingqi.asset.attribute.SkinAttribute
+import com.dashingqi.asset.constant.*
 import com.dashingqi.asset.constant.CONSTANTS_POINT
 import com.dashingqi.asset.constant.INVALID_INDEX
+import com.dashingqi.asset.constant.PREFIX_ANDROIDX_WIDGET
+import com.dashingqi.asset.constant.PREFIX_ANDROID_WEBKIT
+import com.dashingqi.asset.constant.PREFIX_ANDROID_WIDGET
 import java.lang.reflect.Constructor
 
 /**
@@ -18,10 +22,14 @@ import java.lang.reflect.Constructor
 class SkinFactory(activity: Activity) : LayoutInflater.Factory2 {
 
     private val mClassPrefixList = arrayOf(
-        "android.widget.",
-        "android.webkit.",
-        "android.app.",
-        "android.view."
+        PREFIX_ANDROID_WIDGET,
+        PREFIX_ANDROIDX_WIDGET,
+        PREFIX_ANDROID_WEBKIT,
+        PREFIX_ANDROIDX_WEBKIT,
+        PREFIX_ANDROID_APP,
+        PREFIX_ANDROIDX_APP,
+        PREFIX_ANDROID_VIEW,
+        PREFIX_ANDROIDX_VIEW
     )
 
     private val mConstructorSignature = arrayOf(
