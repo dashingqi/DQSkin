@@ -53,16 +53,14 @@ class DQSkinManager private constructor() {
         } else {
             mContext?.let { application ->
                 val appResources = application.resources
-                kotlin.runCatching {
-                    val assetManager = getOrNullAssetManager(skinPath)
-                    assetManager ?: return
-                    val skinResources = buildPluginResources(assetManager, appResources, application)
-                    val packageName = getPluginPackageName(application, skinPath)
-                    // 设置当前皮肤包的Resources和当前皮肤包路径
-                    SkinResources.INSTANCE.applySkin(skinResources, packageName)
-                    // 记录下当前应用的皮肤
-                    SkinPreference.INSTANCE.setSkin(skinPath)
-                }
+                val assetManager = getOrNullAssetManager(skinPath)
+                assetManager ?: return
+                val skinResources = buildPluginResources(assetManager, appResources)
+                val packageName = getPluginPackageName(application, skinPath)
+                // 设置当前皮肤包的Resources和当前皮肤包路径
+                SkinResources.INSTANCE.applySkin(skinResources, packageName)
+                // 记录下当前应用的皮肤
+                SkinPreference.INSTANCE.setSkin(skinPath)
             }
         }
     }

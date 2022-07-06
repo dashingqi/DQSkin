@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
+import androidx.annotation.NonNull
 import com.dashingqi.asset.attribute.SkinAttribute
 import com.dashingqi.asset.constant.*
 import com.dashingqi.asset.constant.CONSTANTS_POINT
@@ -19,7 +20,10 @@ import java.lang.reflect.Constructor
  * @author zhangqi
  * @since 2022/6/23
  */
-class SkinFactory(activity: Activity) : LayoutInflater.Factory2 {
+class SkinFactory(
+    @NonNull
+    activity: Activity
+) : LayoutInflater.Factory2 {
 
     private val mClassPrefixList = arrayOf(
         PREFIX_ANDROID_WIDGET,
@@ -37,6 +41,7 @@ class SkinFactory(activity: Activity) : LayoutInflater.Factory2 {
         AttributeSet::class.java
     )
 
+    /** 存储View的全路径名称与构造函数的对应关系*/
     private val mConstructorMap =
         HashMap<String, Constructor<out View>>()
 
@@ -54,8 +59,7 @@ class SkinFactory(activity: Activity) : LayoutInflater.Factory2 {
      * @return View?
      */
     override fun onCreateView(parent: View?, name: String, context: Context, attrs: AttributeSet): View? {
-        if (attrs == null) return null
-        var view = createSDKView(name, context, attrs)
+        var view = createTagView(name, context, attrs)
         if (view == null) {
             view = createView(name, context, attrs)
         }
@@ -70,7 +74,7 @@ class SkinFactory(activity: Activity) : LayoutInflater.Factory2 {
         return null
     }
 
-    private fun createSDKView(name: String, context: Context, attrs: AttributeSet): View? {
+    private fun createTagView(name: String, context: Context, attrs: AttributeSet): View? {
         if (name.indexOf(CONSTANTS_POINT) != INVALID_INDEX) {
             return null
         }

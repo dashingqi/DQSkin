@@ -22,7 +22,7 @@ import com.dashingqi.asset.constant.INVALID_RES_ID
 private const val REFLEX_NAME_ADD_ASSET_PATH = "addAssetPath"
 
 /** mFactorySet 属性名字*/
-private const val PEFLEX_NAME_FACTORY_SET = "mFactorySet"
+private const val REFLEX_NAME_FACTORY_SET = "mFactorySet"
 
 /**
  * 反射执行 AssetManager 的 addAssetPath方法，返回AssetManager
@@ -49,7 +49,7 @@ fun getOrNullAssetManager(@NonNull pluginPath: String): AssetManager? {
 @SuppressLint("SoonBlockedPrivateApi")
 fun resetFactorySetState(@NonNull layoutInflater: LayoutInflater): Boolean {
     return runCatching {
-        val factorySetFiled = LayoutInflater::class.java.getDeclaredField(PEFLEX_NAME_FACTORY_SET)
+        val factorySetFiled = LayoutInflater::class.java.getDeclaredField(REFLEX_NAME_FACTORY_SET)
         factorySetFiled.isAccessible = true
         factorySetFiled.setBoolean(layoutInflater, false)
         true
@@ -81,14 +81,12 @@ fun getPluginPackageName(@NonNull context: Context, @NonNull pluginPath: String)
  * 构建插件的Resources
  * @param assetManager AssetManager AssetManager
  * @param appResources Resources 宿主的Resource
- * @param context Context 上下文环境
  * @return Resources pluginResources 构建的插件Resources
  */
 @NonNull
 fun buildPluginResources(
     @NonNull assetManager: AssetManager,
     @NonNull appResources: Resources,
-    @NonNull context: Context
 ): Resources {
 
     return Resources(

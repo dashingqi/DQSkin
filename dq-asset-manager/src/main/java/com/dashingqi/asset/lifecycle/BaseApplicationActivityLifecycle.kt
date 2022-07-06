@@ -9,7 +9,7 @@ import android.os.Bundle
  * @author zhangqi
  * @since 2022/6/23
  */
-open  class ApplicationActivityLifecycle : Application.ActivityLifecycleCallbacks {
+open  class BaseApplicationActivityLifecycle : Application.ActivityLifecycleCallbacks {
     override fun onActivityCreated(activity: Activity, bundle: Bundle?) {}
 
     override fun onActivityStarted(activity: Activity) {}
