@@ -4,7 +4,7 @@ import java.lang.reflect.Proxy
 
 /**
  * Activity的Hook
- * @author zhangqi61
+ * @author zhangqi61A
  * @since 2023/6/6
  */
 fun hookActivity() {
@@ -18,6 +18,7 @@ fun hookActivity() {
         val singletonClass = Class.forName("android.util.Singleton")
         val mInstanceField = singletonClass.getDeclaredField("mInstance")
         mInstanceField.isAccessible = true
+//        val mInstance = mInstanceField.get(singleton) ?: return
         val getMethod = singletonClass.getDeclaredMethod("get")
         val mInstance = getMethod.invoke(singleton) ?: return
         val classLoader = Thread.currentThread().contextClassLoader

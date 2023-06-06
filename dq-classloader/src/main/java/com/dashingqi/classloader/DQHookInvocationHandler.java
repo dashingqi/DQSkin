@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
  * @since 2023/6/6
  */
 public class DQHookInvocationHandler implements InvocationHandler {
-    private Object mObj;
+    private final Object mObj;
 
     public DQHookInvocationHandler(Object obj) {
         mObj = obj;
