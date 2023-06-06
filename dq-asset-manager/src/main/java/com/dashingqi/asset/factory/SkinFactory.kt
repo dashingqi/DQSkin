@@ -5,7 +5,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
-import androidx.annotation.NonNull
 import com.dashingqi.asset.attribute.SkinAttribute
 import com.dashingqi.asset.constant.*
 import com.dashingqi.asset.constant.CONSTANTS_POINT
@@ -21,7 +20,6 @@ import java.lang.reflect.Constructor
  * @since 2022/6/23
  */
 class SkinFactory(
-    @NonNull
     activity: Activity
 ) : LayoutInflater.Factory2 {
 

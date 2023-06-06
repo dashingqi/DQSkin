@@ -4,8 +4,6 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
-import androidx.annotation.NonNull
-import androidx.annotation.Nullable
 import androidx.core.content.res.ResourcesCompat
 import com.dashingqi.asset.config.isDebug
 import com.dashingqi.asset.constant.COLOR_TAG
@@ -35,7 +33,7 @@ class SkinResources private constructor() {
      * 初始化操作
      * @param application Context
      */
-    fun init(@NonNull application: Context) {
+    fun init(application: Context) {
         mAppResources = application.resources
     }
 
@@ -44,7 +42,7 @@ class SkinResources private constructor() {
      * @param resources Resources
      * @param packageName String
      */
-    fun applySkin(@Nullable resources: Resources?, @NonNull packageName: String) {
+    fun applySkin(resources: Resources?, packageName: String) {
         mSkinPackageName = packageName
         mAppResources = resources
         isDefaultSkin = packageName.isEmpty() || resources == null
@@ -81,8 +79,7 @@ class SkinResources private constructor() {
      * @param resId Int
      * @return ColorStateList?
      */
-    @Nullable
-    fun getColorStateList(@NonNull resId: Int): ColorStateList? {
+    fun getColorStateList(resId: Int): ColorStateList? {
         return runCatching {
             if (isDefaultSkin) {
                 return ResourcesCompat.getColorStateList(mAppResources!!, resId, null)
@@ -93,7 +90,7 @@ class SkinResources private constructor() {
             }
             return ResourcesCompat.getColorStateList(mSkinResources!!, resId, null)
         }.getOrElse {
-            if (isDebug){
+            if (isDebug) {
                 it.printStackTrace()
             }
             null
@@ -105,8 +102,7 @@ class SkinResources private constructor() {
      * @param resId Int 资源ID
      * @return Int
      */
-    @Nullable
-    fun getColor(@NonNull resId: Int): Int? {
+    fun getColor(resId: Int): Int? {
         return runCatching {
             if (isDefaultSkin) {
                 return ResourcesCompat.getColor(mAppResources!!, resId, null)
@@ -118,7 +114,7 @@ class SkinResources private constructor() {
             }
             return ResourcesCompat.getColor(mSkinResources!!, resId, null)
         }.getOrElse {
-            if (isDebug){
+            if (isDebug) {
                 it.printStackTrace()
             }
             null
@@ -131,8 +127,7 @@ class SkinResources private constructor() {
      * @param resId Int 资源ID
      * @return Drawable? 可为空的Drawable
      */
-    @Nullable
-    fun getDrawable(@NonNull resId: Int): Drawable? {
+    fun getDrawable(resId: Int): Drawable? {
         return runCatching {
             if (isDefaultSkin) {
                 return ResourcesCompat.getDrawable(mAppResources!!, resId, null)
@@ -146,7 +141,7 @@ class SkinResources private constructor() {
             }
             return ResourcesCompat.getDrawable(mSkinResources!!, skinId, null)
         }.getOrElse {
-            if (isDebug){
+            if (isDebug) {
                 it.printStackTrace()
             }
             null
@@ -158,8 +153,7 @@ class SkinResources private constructor() {
      * 获取的可能是Color也可能是Drawable
      * @param resId Int 资源ID
      */
-    @Nullable
-    fun getBackground(@NonNull resId: Int): Any? {
+    fun getBackground(resId: Int): Any? {
         return runCatching {
             val resourceTypeName = mAppResources?.getResourceTypeName(resId)
             if (resourceTypeName.isNullOrEmpty()) return null
@@ -172,7 +166,7 @@ class SkinResources private constructor() {
                 }
             }
         }.getOrElse {
-            if (isDebug){
+            if (isDebug) {
                 it.printStackTrace()
             }
             null

@@ -3,7 +3,6 @@ package com.dashingqi.asset.attribute
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
-import androidx.annotation.NonNull
 import com.dashingqi.asset.SkinChangeListener
 import com.dashingqi.asset.config.LOG_TAG
 import com.dashingqi.asset.config.isDebug
@@ -34,7 +33,7 @@ class SkinAttribute {
     /**
      * 收集属性值
      */
-    fun collectAttribute(@NonNull view: View, @NonNull attributeSet: AttributeSet) {
+    fun collectAttribute(view: View, attributeSet: AttributeSet) {
         val attributeViewPair = arrayListOf<SkinViewAttributePair>()
         for (index in 0..attributeSet.attributeCount) {
             // 属性名

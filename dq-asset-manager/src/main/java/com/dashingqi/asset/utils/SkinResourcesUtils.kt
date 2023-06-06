@@ -6,8 +6,6 @@ import android.content.pm.PackageManager
 import android.content.res.AssetManager
 import android.content.res.Resources
 import android.view.LayoutInflater
-import androidx.annotation.NonNull
-import androidx.annotation.Nullable
 import com.dashingqi.asset.config.isDebug
 import com.dashingqi.asset.constant.EMPTY_STRING
 import com.dashingqi.asset.constant.INVALID_RES_ID
@@ -29,8 +27,7 @@ private const val REFLEX_NAME_FACTORY_SET = "mFactorySet"
  * @param pluginPath String 插件路径
  * @return AssetManager?
  */
-@Nullable
-fun getOrNullAssetManager(@NonNull pluginPath: String): AssetManager? {
+fun getOrNullAssetManager(pluginPath: String): AssetManager? {
     return runCatching {
         val assetManager = AssetManager::class.java.newInstance()
         val addAssetPathMethod = assetManager.javaClass.getMethod(REFLEX_NAME_ADD_ASSET_PATH)
@@ -45,9 +42,8 @@ fun getOrNullAssetManager(@NonNull pluginPath: String): AssetManager? {
  * @param layoutInflater LayoutInflater 布局加载器
  * @return Boolean 设置是否成功
  */
-@NonNull
 @SuppressLint("SoonBlockedPrivateApi")
-fun resetFactorySetState(@NonNull layoutInflater: LayoutInflater): Boolean {
+fun resetFactorySetState(layoutInflater: LayoutInflater): Boolean {
     return runCatching {
         val factorySetFiled = LayoutInflater::class.java.getDeclaredField(REFLEX_NAME_FACTORY_SET)
         factorySetFiled.isAccessible = true
@@ -67,8 +63,7 @@ fun resetFactorySetState(@NonNull layoutInflater: LayoutInflater): Boolean {
  * @param pluginPath String 插件包的路径
  * @return String 插件包的包名
  */
-@NonNull
-fun getPluginPackageName(@NonNull context: Context, @NonNull pluginPath: String): String {
+fun getPluginPackageName(context: Context, pluginPath: String): String {
     return runCatching {
         val pm = context.packageManager
         val packageInfo = pm.getPackageArchiveInfo(pluginPath, PackageManager.GET_ACTIVITIES)
@@ -83,10 +78,9 @@ fun getPluginPackageName(@NonNull context: Context, @NonNull pluginPath: String)
  * @param appResources Resources 宿主的Resource
  * @return Resources pluginResources 构建的插件Resources
  */
-@NonNull
 fun buildPluginResources(
-    @NonNull assetManager: AssetManager,
-    @NonNull appResources: Resources,
+    assetManager: AssetManager,
+    appResources: Resources,
 ): Resources {
 
     return Resources(
@@ -103,10 +97,9 @@ fun buildPluginResources(
  * @param attrs IntArray 属性值数组
  * @return IntArray 资源ID
  */
-@NonNull
 fun getResId(
-    @NonNull context: Context,
-    @NonNull attrs: IntArray
+    context: Context,
+    attrs: IntArray
 ): IntArray {
     val resId = IntArray(attrs.size)
     val typeArray = context.obtainStyledAttributes(attrs)

@@ -20,7 +20,7 @@ internal class SkinPreference private constructor() {
      * 初始化操作
      * @param context Context 上下文
      */
-    fun init(@NonNull context: Context) {
+    fun init(context: Context) {
         if (mSharedPreferences != null) return
         mSharedPreferences = context.applicationContext.getSharedPreferences(SKIN_FILE_NAME, Context.MODE_PRIVATE)
     }
@@ -29,7 +29,7 @@ internal class SkinPreference private constructor() {
      * 设置当前应用的皮肤
      * @param skinPath String 皮肤路径
      */
-    fun setSkin(@NonNull skinPath: String) {
+    fun setSkin(skinPath: String) {
         mSharedPreferences?.edit()?.putString(KEY_SKIN_PATH, skinPath)?.apply()
     }
 
@@ -37,7 +37,6 @@ internal class SkinPreference private constructor() {
      * 获取正在应用的皮肤
      * @return String? 皮肤路径
      */
-    @Nullable
     fun getSkin(): String? {
         return mSharedPreferences?.getString(KEY_SKIN_PATH, "")
     }

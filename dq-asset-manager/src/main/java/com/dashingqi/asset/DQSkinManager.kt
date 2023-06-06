@@ -1,8 +1,6 @@
 package com.dashingqi.asset
 
 import android.app.Application
-import androidx.annotation.NonNull
-import androidx.annotation.Nullable
 import com.dashingqi.asset.lifecycle.SkinAppActivityLifecycle
 import com.dashingqi.asset.utils.*
 
@@ -23,7 +21,7 @@ class DQSkinManager private constructor() {
      * DQSkinManager的初始化操作
      * @param application Application
      */
-    fun init(@NonNull application: Application) {
+    fun init(application: Application) {
         mContext = application
 
         // Sp 初始化

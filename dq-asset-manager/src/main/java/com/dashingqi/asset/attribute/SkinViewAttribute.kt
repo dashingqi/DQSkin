@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.NonNull
 import androidx.core.view.ViewCompat
 import com.dashingqi.asset.SkinChangeListener
 import com.dashingqi.asset.config.isDebug
@@ -25,10 +24,8 @@ import com.dashingqi.asset.utils.SkinResources
  */
 data class SkinViewAttribute(
     /** View */
-    @NonNull
     var view: View,
     /** 属性集合 */
-    @NonNull
     var skinPairs: List<SkinViewAttributePair> = arrayListOf()
 ) {
     /**
