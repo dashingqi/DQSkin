@@ -1,10 +1,12 @@
 package com.dashingqi.dqskin
 
 import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import com.dashingqi.classloader.hookActivity
 import dalvik.system.PathClassLoader
 import java.io.File
 
@@ -17,6 +19,10 @@ class MainActivity : AppCompatActivity() {
             printClassLoader()
             loadOutApkClass()
 
+        }
+
+        findViewById<Button>(R.id.intentActivity).setOnClickListener {
+            Intent(this, IntentActivity::class.java).apply { startActivity(this) }
         }
     }
 

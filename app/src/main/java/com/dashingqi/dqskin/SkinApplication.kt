@@ -3,7 +3,9 @@ package com.dashingqi.dqskin
 import android.app.Application
 import android.util.Log
 import com.dashingqi.asset.DQSkinManager
+import com.dashingqi.classloader.DynamicProxyUtils
 import com.dashingqi.classloader.classLoader
+import com.dashingqi.classloader.hookActivity
 import java.io.File
 
 /**
@@ -15,7 +17,7 @@ class SkinApplication : Application() {
         super.onCreate()
         val apkPath = cacheDir.absolutePath + File.separator + "dq-plugin-debug.apk"
         Log.d("MainActivity", "apkPath = $apkPath")
-        classLoader(this,apkPath)
-        DQSkinManager.INSTANCE.init(this)
+        //classLoader(this,apkPath)
+        hookActivity()
     }
 }
