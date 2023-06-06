@@ -9,6 +9,7 @@
         android:localeConfig="@xml/locales_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:name=".SkinApplication"
         android:theme="@style/Theme.DQSkin">
         <activity
             android:name=".IntentActivity"
