@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
-import com.dashingqi.classloader.hookActivity
 import dalvik.system.PathClassLoader
 import java.io.File
 

@@ -12,15 +12,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DQSkin">
         <activity
+            android:name=".DQProxyActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".IntentActivity"
             android:exported="false">
-
             <intent-filter>
                 <action android:name="android.intent.action.IntentTest" />
             </intent-filter>
-
-        </activity>
-        <!-- <service -->
+        </activity> <!-- <service -->
         <!-- android:name="androidx.appcompat.app.AppLocalesMetadataHolderService" -->
         <!-- android:enabled="false" -->
         <!-- android:exported="false"> -->
