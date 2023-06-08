@@ -1,5 +1,7 @@
 package com.dashingqi.classloader;
 
+import static com.dashingqi.classloader.DQActivityHookKt.TARGET_INTENT;
+
 import android.content.Intent;
 import android.util.Log;
 
@@ -12,8 +14,6 @@ import java.lang.reflect.Method;
  */
 public class DQHookInvocationHandler implements InvocationHandler {
     private final Object mObj;
-
-    private static final String TARGET_INTENT = "targetIntent";
 
     public DQHookInvocationHandler(Object obj) {
         mObj = obj;
