@@ -15,9 +15,9 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "DQSkin"
+rootProject.name = "DQPluginHook"
 include ':app'
 include ':dq-asset-manager'
 include ':dq-resource-wrapper'
 include ':dq-plugin'
-include ':dq-classloader'
+include ':dq-hook'
