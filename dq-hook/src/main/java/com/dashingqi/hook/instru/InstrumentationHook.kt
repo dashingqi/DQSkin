@@ -5,7 +5,7 @@ import android.content.Context
 import com.dashingqi.hook.instru.DQInstrumentationProxy
 
 /**
- * @desc :
+ * @desc : Hook Instrumentation
  * @author : zhangqi
  * @time : 2023/6/11 14:56
  */

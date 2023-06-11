@@ -6,7 +6,7 @@ import android.os.Message
 import java.lang.reflect.Proxy
 
 /**
- * Activity的Hook
+ * Singleton 的Hook
  * @author zhangqi61A
  * @since 2023/6/6
  */

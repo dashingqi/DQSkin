@@ -14,6 +14,7 @@ import java.lang.reflect.Method;
 import kotlin.jvm.functions.Function0;
 
 /**
+ * 动态代理接口实现
  * @author zhangqi61
  * @since 2023/6/6
  */
