@@ -1,6 +1,7 @@
-package com.dashingqi.classloader
+package com.dashingqi.hook.classloader
 
 import android.content.Context
+import com.dashingqi.hook.debug.printLog
 import dalvik.system.DexClassLoader
 import java.lang.reflect.Array.newInstance
 
@@ -25,7 +26,8 @@ import java.lang.reflect.Array.newInstance
  *
  * 获取的是插件的类加载器  --- 反射 dexElements  插件
  */
-fun classLoader(context: Context, apkPath: String) {
+fun loadApk(context: Context, apkPath: String) {
+    if (apkPath.isEmpty()) return
     runCatching {
         // 反射获取BaseDexClassLoader Class对象
         val baseDexClassLoader = Class.forName("dalvik.system.BaseDexClassLoader")
@@ -48,9 +50,7 @@ fun classLoader(context: Context, apkPath: String) {
 
         // 获取到插件类加载器的对象
         val pluginDexClassLoader = DexClassLoader(
-            apkPath,
-            context.cacheDir.absolutePath,
-            null, hostClassLoader
+            apkPath, context.cacheDir.absolutePath, null, hostClassLoader
         )
         // 获取到插件pathList类的对象
         val pluginPathList = pathListField.get(pluginDexClassLoader)
@@ -59,21 +59,18 @@ fun classLoader(context: Context, apkPath: String) {
 
         // 构造一个新数组
         val newDexElementsArray = newInstance(
-            hostDexElements::class.java.componentType,
-            hostDexElements.size + pluginDexElements.size
+            hostDexElements::class.java.componentType, hostDexElements.size + pluginDexElements.size
         ) as Array<Any>
 
         System.arraycopy(
-            hostDexElements, 0, newDexElementsArray, 0,
-            hostDexElements.size
+            hostDexElements, 0, newDexElementsArray, 0, hostDexElements.size
         )
         System.arraycopy(
-            pluginDexElements, 0, newDexElementsArray,
-            hostDexElements.size,
-            pluginDexElements.size
+            pluginDexElements, 0, newDexElementsArray, hostDexElements.size, pluginDexElements.size
         )
         // 宿主DexElements重新赋值
         dexElementsField.set(hostPathList, newDexElementsArray)
+        printLog { "load apk success" }
     }.onFailure {
         it.printStackTrace()
     }

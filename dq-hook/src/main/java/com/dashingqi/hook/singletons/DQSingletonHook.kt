@@ -1,14 +1,8 @@
-package com.dashingqi.classloader
+package com.dashingqi.hook.singletons
 
-import android.app.Activity
-import android.app.Instrumentation
-import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.os.Handler
-import android.os.IBinder
 import android.os.Message
-import android.util.Log
 import java.lang.reflect.Proxy
 
 /**
@@ -38,59 +32,13 @@ fun hookAMS() {
         // 动态代理
         // 代理的接口
         val proxyInstance = Proxy.newProxyInstance(
-            classLoader, arrayOf<Class<*>>(iActivityTaskManagerClass), DQHookInvocationHandler(mInstance)
+            classLoader, arrayOf<Class<*>>(iActivityTaskManagerClass),
+            DQHookInvocationHandler(mInstance)
         )
         mInstanceField.set(singleton, proxyInstance)
     }.onFailure {
         it.printStackTrace()
     }
-}
-
-fun hookInstrumentation(activity: Activity) {
-    runCatching {
-        val activityClass = Activity::class.java
-        val instrumentationField = activityClass.getDeclaredField("mInstrumentation")
-        instrumentationField.isAccessible = true
-        val instrumentationInstance = instrumentationField.get(activity) as Instrumentation
-        instrumentationField.set(activity, DQInstrumentation(instrumentationInstance))
-
-    }.onFailure {
-        it.printStackTrace()
-    }
-}
-
-class DQInstrumentation(private val originInstrumentation: Instrumentation) : Instrumentation() {
-
-    fun execStartActivity(
-        who: Context?, contextThread: IBinder?, token: IBinder?, target: Activity?, intent: Intent?,
-        requestCode: Int?, options: Bundle?
-    ): ActivityResult? {
-        return kotlin.runCatching {
-            Log.d("MainActivity", "hook instrumentation perform before")
-            val execStartActivityMethod = Instrumentation::class.java.getDeclaredMethod(
-                "execStartActivity",
-                Context::class.java,
-                IBinder::class.java,
-                IBinder::class.java,
-                Activity::class.java,
-                Activity::class.java,
-                Intent::class.java,
-                Int::class.java,
-                Bundle::class.java
-            )
-            execStartActivityMethod.isAccessible = true
-            val pluginActivityResult = execStartActivityMethod.invoke(
-                originInstrumentation, who, contextThread, token, target, intent,
-                requestCode, options
-            ) as? ActivityResult
-            Log.d("MainActivity", "hook instrumentation perform after")
-            return pluginActivityResult
-        }.onFailure {
-            it.printStackTrace()
-        }.getOrNull()
-
-    }
-
 }
 
 fun hookLaunchActivity() {

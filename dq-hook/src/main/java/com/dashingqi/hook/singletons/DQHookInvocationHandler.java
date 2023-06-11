@@ -1,12 +1,17 @@
-package com.dashingqi.classloader;
+package com.dashingqi.hook.singletons;
 
-import static com.dashingqi.classloader.DQActivityHookKt.TARGET_INTENT;
+import static com.dashingqi.hook.constants.DQHookConstKt.METHOD_NAME_START_ACTIVITY;
+import static com.dashingqi.hook.singletons.DQSingletonHookKt.TARGET_INTENT;
 
 import android.content.Intent;
 import android.util.Log;
 
+import com.dashingqi.hook.debug.DQDebugKt;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+
+import kotlin.jvm.functions.Function0;
 
 /**
  * @author zhangqi61
@@ -21,8 +26,8 @@ public class DQHookInvocationHandler implements InvocationHandler {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        Log.d("MainActivity", "hookActivity perform method is " + method.getName());
-        if ("startActivity".equals(method.getName())) {
+        DQDebugKt.printLog(() -> "hookActivity perform method is " + method.getName());
+        if (METHOD_NAME_START_ACTIVITY.equals(method.getName())) {
             int index = -1;
             for (int i = 0; i < args.length; i++) {
                 if (args[i] instanceof Intent) {
@@ -33,8 +38,7 @@ public class DQHookInvocationHandler implements InvocationHandler {
             if (index != -1) {
                 Intent pluginIntent = (Intent) args[index];
                 Intent proxyIntent = new Intent();
-                proxyIntent.setClassName("com.dashingqi.dqskin",
-                        "com.dashingqi.dqskin.DQProxyActivity");
+                proxyIntent.setClassName("com.dashingqi.dqskin", "com.dashingqi.dqskin.DQProxyActivity");
                 proxyIntent.putExtra(TARGET_INTENT, pluginIntent);
                 args[index] = proxyIntent;
             }

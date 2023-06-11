@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DQSkin</string>
+    <string name="app_name">DQPluginHook</string>
     <string name="hello">你好</string>
     <string name="load_dex" translatable="false">加载Dex</string>
     <string name="intent_activity" translatable="false">跳转到IntentActivity</string>

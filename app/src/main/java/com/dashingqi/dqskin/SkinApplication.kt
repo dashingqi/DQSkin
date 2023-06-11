@@ -1,9 +1,9 @@
 package com.dashingqi.dqskin
 
 import android.app.Application
-import android.util.Log
-import com.dashingqi.classloader.hookAMS
-import com.dashingqi.classloader.hookLaunchActivity
+import com.dashingqi.hook.classloader.loadApk
+import com.dashingqi.hook.debug.printLog
+import com.dashingqi.hook.instru.hookInstrumentation
 import java.io.File
 
 /**
@@ -14,9 +14,10 @@ class SkinApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         val apkPath = cacheDir.absolutePath + File.separator + "dq-plugin-debug.apk"
-        Log.d("MainActivity", "apkPath = $apkPath")
-        //classLoader(this,apkPath)
-        //hookAMS()
+        printLog { "apkPath = $apkPath" }
+        loadApk(this, apkPath)
+        // hookAMS()
         // hookLaunchActivity()
+        hookInstrumentation(this)
     }
 }
