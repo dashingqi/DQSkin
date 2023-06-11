@@ -16,7 +16,7 @@ class SkinApplication : Application() {
         val apkPath = cacheDir.absolutePath + File.separator + "dq-plugin-debug.apk"
         Log.d("MainActivity", "apkPath = $apkPath")
         //classLoader(this,apkPath)
-        hookAMS()
-        hookLaunchActivity()
+        //hookAMS()
+        // hookLaunchActivity()
     }
 }
