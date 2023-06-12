@@ -4,6 +4,8 @@ import android.app.Application
 import com.dashingqi.hook.classloader.loadApk
 import com.dashingqi.hook.debug.printLog
 import com.dashingqi.hook.instru.hookInstrumentation
+import com.dashingqi.hook.singletons.hookAMS
+import com.dashingqi.hook.singletons.hookLaunchActivity
 import java.io.File
 
 /**
@@ -16,8 +18,8 @@ class SkinApplication : Application() {
         val apkPath = cacheDir.absolutePath + File.separator + "dq-plugin-debug.apk"
         printLog { "apkPath = $apkPath" }
         loadApk(this, apkPath)
-        // hookAMS()
-        // hookLaunchActivity()
-        hookInstrumentation(this)
+        hookAMS()
+        hookLaunchActivity()
+        //hookInstrumentation(this)
     }
 }

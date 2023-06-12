@@ -39,7 +39,8 @@ public class DQHookInvocationHandler implements InvocationHandler {
             if (index != -1) {
                 Intent pluginIntent = (Intent) args[index];
                 Intent proxyIntent = new Intent();
-                proxyIntent.setClassName("com.dashingqi.dqskin", "com.dashingqi.dqskin.DQProxyActivity");
+                proxyIntent.setClassName("com.dashingqi.dqskin",
+                        "com.dashingqi.hook.stub.DQStubActivity");
                 proxyIntent.putExtra(TARGET_INTENT, pluginIntent);
                 args[index] = proxyIntent;
             }
