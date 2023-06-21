@@ -29,6 +29,10 @@ class MainActivity : AppCompatActivity() {
                 startActivity(this)
             }
         }
+
+        findViewById<Button>(R.id.dialogFragment).setOnClickListener {
+            MyDialogFragment.newInstance().show(supportFragmentManager,"dialog")
+        }
     }
 
     /**

@@ -3,4 +3,5 @@
     <string name="hello">你好</string>
     <string name="load_dex" translatable="false">加载Dex</string>
     <string name="intent_activity" translatable="false">跳转到IntentActivity</string>
+    <string name="dialog_fragment" translatable="false">弹出DialogFragment</string>
 </resources>

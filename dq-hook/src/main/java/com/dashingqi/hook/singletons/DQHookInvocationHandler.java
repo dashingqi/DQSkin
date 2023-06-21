@@ -36,6 +36,7 @@ public class DQHookInvocationHandler implements InvocationHandler {
                     break;
                 }
             }
+            // 可以检查下当前启动的Activity是否注册在Manifest中
             if (index != -1) {
                 Intent pluginIntent = (Intent) args[index];
                 Intent proxyIntent = new Intent();
