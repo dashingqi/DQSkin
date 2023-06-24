@@ -9,8 +9,10 @@ import com.dashingqi.classloader.BuildConfig
  * @time : 2023/6/11 16:26
  */
 
+/** default tag */
 private const val DEFAULT_HOOK_TAG = "DQHookTag"
 
+/** id debug model */
 val DEBUG = BuildConfig.DEBUG
 
 fun printLog(messageAction: () -> String) {
